@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture {{ facture.id }}</title>
+    <style>
+        /* Inclure les styles de Bootstrap pour le PDF */
+        @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+        /* Styles personnalisés pour le PDF */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        .invoice-header, .invoice-footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice-header h1 {
+            color: #007bff;
+        }
+        .invoice-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .invoice-table th {
+            background-color: #f4f4f4;
+        }
+
+    
+
+        .invoice-footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-header">
+        <h1>Facture #{{ facture.id }}</h1>
+        <p>Date : {{ facture.date }}</p>
+        <p>Client : {{ facture.client.nom }} {{ facture.client.prenom }}</p>
+    </div>
+
+    <!-- Détails de la facture -->
+    <h3>Détails de la facture</h3>
+    <table class="invoice-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>QT</th>
+                <th>P.U.HT</th>
+                <th>TVA</th>
+                <th>Prix TTC</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detail in details %}
+            <tr>
+                <td style="width: 50%;">{{ detail.description }}</td>
+                <td style="width: 5%;">{{ detail.quantite }}</td>
+                <td style="width: 10%;">{{ detail.prix }}</td>
+                <td style="width: 10%;">{{ detail.tva }}%</td>
+                <td style="width: 15%;">{{ detail.prix_ttc|floatformat:2 }}</td>
+                <td style="width: 10%;">{{ detail.total_ligne|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Total -->
+    <h3>Total Facture : {{ total_facture|floatformat:2 }}</h3>
+
+    <!-- Page Break for multiple pages -->
+    {% if details|length > 5 %}
+    <div class="page-break"></div>
+    <div class="invoice-footer">
+        <p>Page {{ forloop.counter }} of {{ forloop.length }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Footer -->
+    <div class="invoice-footer">
+        <p>Merci pour votre achat !</p>
+    </div>
+</body>
+</html>

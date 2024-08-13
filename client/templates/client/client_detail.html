@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+    <h1>Détails du Client</h1>
+    <p><strong>Nom:</strong> {{ client.nom }}</p>
+    <p><strong>Prénom:</strong> {{ client.prenom }}</p>
+    <p><strong>Adresse:</strong> {{ client.adresse }}</p>
+    <p><strong>Code Postal:</strong> {{ client.code_postal }}</p>
+    <p><strong>Ville:</strong> {{ client.ville }}</p>
+    <p><strong>Email:</strong> {{ client.email }}</p>
+    <p><strong>Téléphone:</strong> {{ client.telephone }}</p>
+    <a href="{% url 'client_list' %}">Retour à la liste</a>
+    {% endblock content %}
