@@ -29,6 +29,9 @@
                       <th>ref</th>
                       <th>Nom et Prénom</th>
                       <th>email</th>
+                      <th>Adresse - Vile</th>
+                      <th>Code Postal</th>
+                      <th>telephone</th>
                       <th>actions</th>
                     </tr>
                     </thead>
@@ -38,6 +41,9 @@
                       <td>{{ client.pk }}</td>
                       <td>{{ client.nom }} {{ client.prenom }}</td>
                       <td>{{ client.email }}</td>
+                      <td>{{ client.adresse }} - {{ client.ville }}</td>
+                      <td>{{ client.code_postal }}</td>
+                      <td>{{ client.telephone }}</td>
                       
                       <td class="project-actions text-right">
                         <a class="btn btn-primary btn-sm" href="{% url 'client_detail' client.pk %}">
